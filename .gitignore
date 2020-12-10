@@ -1,0 +1,8 @@
+LidarDetector/data
+**model_final_be35db.pkl
+**/checkpoints/**
+**.vscode**
+**__pycache__**
+**build**
+**egg-info**
+**dist**

@@ -1,0 +1,1096 @@
+2020-12-05 20:58:44,807   INFO  **********************Start logging**********************
+2020-12-05 20:58:44,807   INFO  CUDA_VISIBLE_DEVICES=ALL
+2020-12-05 20:58:44,807   INFO  total_batch_size: 24
+2020-12-05 20:58:44,808   INFO  cfg_file         ./cfgs/kitti_models/pp-gt-r.yaml
+2020-12-05 20:58:44,808   INFO  batch_size       12
+2020-12-05 20:58:44,808   INFO  epochs           80
+2020-12-05 20:58:44,808   INFO  workers          8
+2020-12-05 20:58:44,808   INFO  extra_tag        default
+2020-12-05 20:58:44,808   INFO  ckpt             None
+2020-12-05 20:58:44,808   INFO  pretrained_model None
+2020-12-05 20:58:44,808   INFO  launcher         pytorch
+2020-12-05 20:58:44,808   INFO  tcp_port         18888
+2020-12-05 20:58:44,808   INFO  sync_bn          False
+2020-12-05 20:58:44,808   INFO  fix_random_seed  False
+2020-12-05 20:58:44,808   INFO  ckpt_save_interval 1
+2020-12-05 20:58:44,808   INFO  local_rank       0
+2020-12-05 20:58:44,808   INFO  max_ckpt_save_num 30
+2020-12-05 20:58:44,808   INFO  merge_all_iters_to_one_epoch False
+2020-12-05 20:58:44,808   INFO  set_cfgs         None
+2020-12-05 20:58:44,808   INFO  max_waiting_mins 0
+2020-12-05 20:58:44,808   INFO  start_epoch      0
+2020-12-05 20:58:44,808   INFO  save_to_file     False
+2020-12-05 20:58:44,809   INFO  cfg.ROOT_DIR: /home/lethe5lambda/Documents/PointPainter/LidarDetector
+2020-12-05 20:58:44,809   INFO  cfg.LOCAL_RANK: 0
+2020-12-05 20:58:44,809   INFO  cfg.CLASS_NAMES: ['Car', 'Pedestrian', 'Cyclist']
+2020-12-05 20:58:44,809   INFO  
+cfg.DATA_CONFIG = edict()
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATASET: PaintedKittiDataset
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATA_PATH: ../data/kitti
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.POINT_CLOUD_RANGE: [0, -39.68, -3, 69.12, 39.68, 1]
+2020-12-05 20:58:44,809   INFO  
+cfg.DATA_CONFIG.DATA_SPLIT = edict()
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATA_SPLIT.train: train
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATA_SPLIT.test: val
+2020-12-05 20:58:44,809   INFO  
+cfg.DATA_CONFIG.INFO_PATH = edict()
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.INFO_PATH.train: ['kitti_infos_train.pkl']
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.INFO_PATH.test: ['kitti_infos_val.pkl']
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.FOV_POINTS_ONLY: True
+2020-12-05 20:58:44,809   INFO  
+cfg.DATA_CONFIG.DATA_AUGMENTOR = edict()
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.DISABLE_AUG_LIST: ['placeholder']
+2020-12-05 20:58:44,809   INFO  cfg.DATA_CONFIG.DATA_AUGMENTOR.AUG_CONFIG_LIST: [{'NAME': 'gt_sampling', 'USE_ROAD_PLANE': True, 'DB_INFO_PATH': ['kitti_dbinfos_train.pkl'], 'PREPARE': {'filter_by_min_points': ['Car:5', 'Pedestrian:5', 'Cyclist:5'], 'filter_by_difficulty': [-1]}, 'SAMPLE_GROUPS': ['Car:15', 'Pedestrian:15', 'Cyclist:15'], 'NUM_POINT_FEATURES': 8, 'DATABASE_WITH_FAKELIDAR': False, 'REMOVE_EXTRA_WIDTH': [0.0, 0.0, 0.0], 'LIMIT_WHOLE_SCENE': False}, {'NAME': 'random_world_flip', 'ALONG_AXIS_LIST': ['x']}, {'NAME': 'random_world_rotation', 'WORLD_ROT_ANGLE': [-0.78539816, 0.78539816]}, {'NAME': 'random_world_scaling', 'WORLD_SCALE_RANGE': [0.95, 1.05]}]
+2020-12-05 20:58:44,809   INFO  
+cfg.DATA_CONFIG.POINT_FEATURE_ENCODING = edict()
+2020-12-05 20:58:44,810   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.encoding_type: absolute_coordinates_encoding
+2020-12-05 20:58:44,810   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.used_feature_list: ['x', 'y', 'z', 'intensity', 's0', 's1', 's2', 's3']
+2020-12-05 20:58:44,810   INFO  cfg.DATA_CONFIG.POINT_FEATURE_ENCODING.src_feature_list: ['x', 'y', 'z', 'intensity', 's0', 's1', 's2', 's3']
+2020-12-05 20:58:44,810   INFO  cfg.DATA_CONFIG.DATA_PROCESSOR: [{'NAME': 'mask_points_and_boxes_outside_range', 'REMOVE_OUTSIDE_BOXES': True}, {'NAME': 'shuffle_points', 'SHUFFLE_ENABLED': {'train': True, 'test': False}}, {'NAME': 'transform_points_to_voxels', 'VOXEL_SIZE': [0.16, 0.16, 4], 'MAX_POINTS_PER_VOXEL': 32, 'MAX_NUMBER_OF_VOXELS': {'train': 16000, 'test': 40000}}]
+2020-12-05 20:58:44,810   INFO  cfg.DATA_CONFIG._BASE_CONFIG_: cfgs/dataset_configs/painted_kitti_dataset.yaml
+2020-12-05 20:58:44,810   INFO  
+cfg.MODEL = edict()
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.NAME: PointPillar
+2020-12-05 20:58:44,810   INFO  
+cfg.MODEL.VFE = edict()
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.VFE.NAME: PillarVFE
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.VFE.WITH_DISTANCE: False
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.VFE.USE_ABSLOTE_XYZ: True
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.VFE.USE_NORM: True
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.VFE.NUM_FILTERS: [64]
+2020-12-05 20:58:44,810   INFO  
+cfg.MODEL.MAP_TO_BEV = edict()
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.MAP_TO_BEV.NAME: PointPillarScatter
+2020-12-05 20:58:44,810   INFO  cfg.MODEL.MAP_TO_BEV.NUM_BEV_FEATURES: 64
+2020-12-05 20:58:44,810   INFO  
+cfg.MODEL.BACKBONE_2D = edict()
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.NAME: BaseBEVBackbone
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.LAYER_NUMS: [3, 5, 5]
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.LAYER_STRIDES: [2, 2, 2]
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.NUM_FILTERS: [64, 128, 256]
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.UPSAMPLE_STRIDES: [1, 2, 4]
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.BACKBONE_2D.NUM_UPSAMPLE_FILTERS: [128, 128, 128]
+2020-12-05 20:58:44,811   INFO  
+cfg.MODEL.DENSE_HEAD = edict()
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.NAME: AnchorHeadSingle
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.CLASS_AGNOSTIC: False
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.USE_DIRECTION_CLASSIFIER: True
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.DIR_OFFSET: 0.78539
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.DIR_LIMIT_OFFSET: 0.0
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.NUM_DIR_BINS: 2
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.ANCHOR_GENERATOR_CONFIG: [{'class_name': 'Car', 'anchor_sizes': [[3.9, 1.6, 1.56]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [-1.78], 'align_center': False, 'feature_map_stride': 2, 'matched_threshold': 0.6, 'unmatched_threshold': 0.45}, {'class_name': 'Pedestrian', 'anchor_sizes': [[0.8, 0.6, 1.73]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [-0.6], 'align_center': False, 'feature_map_stride': 2, 'matched_threshold': 0.5, 'unmatched_threshold': 0.35}, {'class_name': 'Cyclist', 'anchor_sizes': [[1.76, 0.6, 1.73]], 'anchor_rotations': [0, 1.57], 'anchor_bottom_heights': [-0.6], 'align_center': False, 'feature_map_stride': 2, 'matched_threshold': 0.5, 'unmatched_threshold': 0.35}]
+2020-12-05 20:58:44,811   INFO  
+cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG = edict()
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.NAME: AxisAlignedTargetAssigner
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.POS_FRACTION: -1.0
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.SAMPLE_SIZE: 512
+2020-12-05 20:58:44,811   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.NORM_BY_NUM_EXAMPLES: False
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.MATCH_HEIGHT: False
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.TARGET_ASSIGNER_CONFIG.BOX_CODER: ResidualCoder
+2020-12-05 20:58:44,812   INFO  
+cfg.MODEL.DENSE_HEAD.LOSS_CONFIG = edict()
+2020-12-05 20:58:44,812   INFO  
+cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS = edict()
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.cls_weight: 1.0
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.loc_weight: 2.0
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.dir_weight: 0.2
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.DENSE_HEAD.LOSS_CONFIG.LOSS_WEIGHTS.code_weights: [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
+2020-12-05 20:58:44,812   INFO  
+cfg.MODEL.POST_PROCESSING = edict()
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.RECALL_THRESH_LIST: [0.3, 0.5, 0.7]
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.SCORE_THRESH: 0.1
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.OUTPUT_RAW_SCORE: False
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.EVAL_METRIC: kitti
+2020-12-05 20:58:44,812   INFO  
+cfg.MODEL.POST_PROCESSING.NMS_CONFIG = edict()
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.MULTI_CLASSES_NMS: False
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_TYPE: nms_gpu
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_THRESH: 0.01
+2020-12-05 20:58:44,812   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_PRE_MAXSIZE: 4096
+2020-12-05 20:58:44,813   INFO  cfg.MODEL.POST_PROCESSING.NMS_CONFIG.NMS_POST_MAXSIZE: 500
+2020-12-05 20:58:44,813   INFO  
+cfg.OPTIMIZATION = edict()
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.BATCH_SIZE_PER_GPU: 4
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.NUM_EPOCHS: 80
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.OPTIMIZER: adam_onecycle
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.LR: 0.003
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.WEIGHT_DECAY: 0.01
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.MOMENTUM: 0.9
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.MOMS: [0.95, 0.85]
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.PCT_START: 0.4
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.DIV_FACTOR: 10
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.DECAY_STEP_LIST: [35, 45]
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.LR_DECAY: 0.1
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.LR_CLIP: 1e-07
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.LR_WARMUP: False
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.WARMUP_EPOCH: 1
+2020-12-05 20:58:44,813   INFO  cfg.OPTIMIZATION.GRAD_NORM_CLIP: 10
+2020-12-05 20:58:44,813   INFO  cfg.TAG: pp-gt-r
+2020-12-05 20:58:44,813   INFO  cfg.EXP_GROUP_PATH: cfgs/kitti_models
+2020-12-05 20:58:44,937   INFO  Database filter by min points Car: 14357 => 13532
+2020-12-05 20:58:44,937   INFO  Database filter by min points Pedestrian: 2207 => 2168
+2020-12-05 20:58:44,937   INFO  Database filter by min points Cyclist: 734 => 705
+2020-12-05 20:58:44,958   INFO  Database filter by difficulty Car: 13532 => 10759
+2020-12-05 20:58:44,961   INFO  Database filter by difficulty Pedestrian: 2168 => 2075
+2020-12-05 20:58:44,962   INFO  Database filter by difficulty Cyclist: 705 => 581
+2020-12-05 20:58:44,969   INFO  Loading KITTI dataset
+2020-12-05 20:58:45,060   INFO  Total samples for KITTI dataset: 3712
+2020-12-05 20:58:46,103   INFO  DistributedDataParallel(
+  (module): PointPillar(
+    (vfe): PillarVFE(
+      (pfn_layers): ModuleList(
+        (0): PFNLayer(
+          (linear): Linear(in_features=14, out_features=64, bias=False)
+          (norm): BatchNorm1d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+        )
+      )
+    )
+    (backbone_3d): None
+    (map_to_bev_module): PointPillarScatter()
+    (pfe): None
+    (backbone_2d): BaseBEVBackbone(
+      (blocks): ModuleList(
+        (0): Sequential(
+          (0): ZeroPad2d(padding=(1, 1, 1, 1), value=0.0)
+          (1): Conv2d(64, 64, kernel_size=(3, 3), stride=(2, 2), bias=False)
+          (2): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (3): ReLU()
+          (4): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (5): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (6): ReLU()
+          (7): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (8): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (9): ReLU()
+          (10): Conv2d(64, 64, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (11): BatchNorm2d(64, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (12): ReLU()
+        )
+        (1): Sequential(
+          (0): ZeroPad2d(padding=(1, 1, 1, 1), value=0.0)
+          (1): Conv2d(64, 128, kernel_size=(3, 3), stride=(2, 2), bias=False)
+          (2): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (3): ReLU()
+          (4): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (5): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (6): ReLU()
+          (7): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (8): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (9): ReLU()
+          (10): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (11): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (12): ReLU()
+          (13): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (14): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (15): ReLU()
+          (16): Conv2d(128, 128, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (17): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (18): ReLU()
+        )
+        (2): Sequential(
+          (0): ZeroPad2d(padding=(1, 1, 1, 1), value=0.0)
+          (1): Conv2d(128, 256, kernel_size=(3, 3), stride=(2, 2), bias=False)
+          (2): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (3): ReLU()
+          (4): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (5): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (6): ReLU()
+          (7): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (8): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (9): ReLU()
+          (10): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (11): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (12): ReLU()
+          (13): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (14): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (15): ReLU()
+          (16): Conv2d(256, 256, kernel_size=(3, 3), stride=(1, 1), padding=(1, 1), bias=False)
+          (17): BatchNorm2d(256, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (18): ReLU()
+        )
+      )
+      (deblocks): ModuleList(
+        (0): Sequential(
+          (0): ConvTranspose2d(64, 128, kernel_size=(1, 1), stride=(1, 1), bias=False)
+          (1): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (1): Sequential(
+          (0): ConvTranspose2d(128, 128, kernel_size=(2, 2), stride=(2, 2), bias=False)
+          (1): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+        (2): Sequential(
+          (0): ConvTranspose2d(256, 128, kernel_size=(4, 4), stride=(4, 4), bias=False)
+          (1): BatchNorm2d(128, eps=0.001, momentum=0.01, affine=True, track_running_stats=True)
+          (2): ReLU()
+        )
+      )
+    )
+    (dense_head): AnchorHeadSingle(
+      (cls_loss_func): SigmoidFocalClassificationLoss()
+      (reg_loss_func): WeightedSmoothL1Loss()
+      (dir_loss_func): WeightedCrossEntropyLoss()
+      (conv_cls): Conv2d(384, 18, kernel_size=(1, 1), stride=(1, 1))
+      (conv_box): Conv2d(384, 42, kernel_size=(1, 1), stride=(1, 1))
+      (conv_dir_cls): Conv2d(384, 12, kernel_size=(1, 1), stride=(1, 1))
+    )
+    (point_head): None
+    (roi_head): None
+  )
+)
+2020-12-05 20:58:46,105   INFO  **********************Start training cfgs/kitti_models/pp-gt-r(default)**********************
+2020-12-06 00:26:19,744   INFO  **********************End training cfgs/kitti_models/pp-gt-r(default)**********************
+
+
+
+2020-12-06 00:26:19,744   INFO  **********************Start evaluation cfgs/kitti_models/pp-gt-r(default)**********************
+2020-12-06 00:26:19,746   INFO  Loading KITTI dataset
+2020-12-06 00:26:19,850   INFO  Total samples for KITTI dataset: 3769
+2020-12-06 00:26:19,852   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_70.pth to CPU
+2020-12-06 00:26:19,876   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:26:19,944   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:26:19,945   INFO  *************** EPOCH 70 EVALUATION *****************
+2020-12-06 00:27:17,148   INFO  *************** Performance of EPOCH 70 *****************
+2020-12-06 00:27:17,149   INFO  Generate label finished(sec_per_example: 0.0152 second).
+2020-12-06 00:27:17,149   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:27:17,149   INFO  recall_rcnn_0.3: 0.940888
+2020-12-06 00:27:17,149   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:27:17,149   INFO  recall_rcnn_0.5: 0.877620
+2020-12-06 00:27:17,149   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:27:17,149   INFO  recall_rcnn_0.7: 0.626139
+2020-12-06 00:27:17,151   INFO  Average predicted number of objects(3769 samples): 19.941
+2020-12-06 00:27:44,678   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.5726, 89.1164, 88.2941
+bev  AP:89.1743, 86.5807, 84.2581
+3d   AP:84.9553, 75.7336, 72.4678
+aos  AP:90.56, 88.90, 87.95
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.3925, 91.4804, 90.5686
+bev  AP:91.6865, 87.5982, 86.5897
+3d   AP:86.2008, 76.3115, 73.8511
+aos  AP:95.37, 91.24, 90.19
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.5726, 89.1164, 88.2941
+bev  AP:90.6339, 89.7492, 89.2149
+3d   AP:90.6339, 89.6778, 89.0841
+aos  AP:90.56, 88.90, 87.95
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.3925, 91.4804, 90.5686
+bev  AP:95.5433, 94.1974, 93.7237
+3d   AP:95.5100, 93.9209, 93.0740
+aos  AP:95.37, 91.24, 90.19
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.1865, 58.7918, 55.5380
+bev  AP:57.9586, 53.1554, 48.9923
+3d   AP:53.8206, 48.0514, 44.2586
+aos  AP:41.54, 38.14, 36.00
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.9871, 58.6425, 54.6781
+bev  AP:57.7477, 51.7499, 47.3586
+3d   AP:52.5224, 46.7632, 41.8259
+aos  AP:40.81, 37.65, 35.16
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.1865, 58.7918, 55.5380
+bev  AP:70.4882, 67.1895, 62.7068
+3d   AP:70.3636, 66.9107, 62.4500
+aos  AP:41.54, 38.14, 36.00
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.9871, 58.6425, 54.6781
+bev  AP:71.8483, 67.5272, 62.9906
+3d   AP:71.7127, 67.1607, 62.6453
+aos  AP:40.81, 37.65, 35.16
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.4523, 72.1137, 69.3109
+bev  AP:77.4110, 62.8571, 59.0349
+3d   AP:73.4973, 57.3915, 54.9535
+aos  AP:82.59, 68.87, 66.17
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.5192, 73.6191, 69.4288
+bev  AP:78.8237, 62.6597, 58.8374
+3d   AP:73.9222, 56.7337, 53.1527
+aos  AP:85.51, 70.15, 66.10
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.4523, 72.1137, 69.3109
+bev  AP:82.2920, 67.9958, 65.6036
+3d   AP:82.2920, 67.9958, 65.6036
+aos  AP:82.59, 68.87, 66.17
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.5192, 73.6191, 69.4288
+bev  AP:85.1811, 69.0185, 65.3149
+3d   AP:85.1811, 69.0185, 65.3149
+aos  AP:85.51, 70.15, 66.10
+
+2020-12-06 00:27:44,683   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_70/val
+2020-12-06 00:27:44,683   INFO  ****************Evaluation done.*****************
+2020-12-06 00:27:44,700   INFO  Epoch 70 has been evaluated
+2020-12-06 00:27:44,701   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_71.pth to CPU
+2020-12-06 00:27:44,720   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:27:44,780   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:27:44,782   INFO  *************** EPOCH 71 EVALUATION *****************
+2020-12-06 00:28:37,317   INFO  *************** Performance of EPOCH 71 *****************
+2020-12-06 00:28:37,318   INFO  Generate label finished(sec_per_example: 0.0139 second).
+2020-12-06 00:28:37,318   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:28:37,318   INFO  recall_rcnn_0.3: 0.937073
+2020-12-06 00:28:37,318   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:28:37,318   INFO  recall_rcnn_0.5: 0.877847
+2020-12-06 00:28:37,318   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:28:37,318   INFO  recall_rcnn_0.7: 0.633314
+2020-12-06 00:28:37,320   INFO  Average predicted number of objects(3769 samples): 17.659
+2020-12-06 00:28:53,930   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:95.1344, 89.4740, 88.6744
+bev  AP:89.2720, 86.8839, 85.3007
+3d   AP:85.9742, 76.4614, 75.2014
+aos  AP:95.10, 89.28, 88.36
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:97.0766, 92.0953, 91.4276
+bev  AP:91.8553, 87.7474, 86.9082
+3d   AP:87.1652, 77.7583, 75.2252
+aos  AP:97.05, 91.88, 91.08
+Car AP@0.70, 0.50, 0.50:
+bbox AP:95.1344, 89.4740, 88.6744
+bev  AP:95.2712, 89.8570, 89.2656
+3d   AP:95.2104, 89.7968, 89.1100
+aos  AP:95.10, 89.28, 88.36
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:97.0766, 92.0953, 91.4276
+bev  AP:97.2813, 94.6032, 94.0888
+3d   AP:97.2422, 94.4191, 93.7796
+aos  AP:97.05, 91.88, 91.08
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.2473, 58.9866, 55.2018
+bev  AP:58.0816, 53.3162, 49.1127
+3d   AP:53.4596, 47.8337, 44.0728
+aos  AP:41.15, 37.96, 35.65
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:63.1488, 58.9321, 54.6059
+bev  AP:58.2446, 52.0480, 47.6318
+3d   AP:52.1715, 46.3081, 41.8497
+aos  AP:40.46, 37.52, 34.75
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.2473, 58.9866, 55.2018
+bev  AP:70.7637, 67.3181, 63.1360
+3d   AP:70.5608, 66.9525, 62.5971
+aos  AP:41.15, 37.96, 35.65
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:63.1488, 58.9321, 54.6059
+bev  AP:72.0946, 67.6976, 63.3208
+3d   AP:71.7957, 67.2313, 62.8059
+aos  AP:40.46, 37.52, 34.75
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.9083, 71.1172, 67.7176
+bev  AP:76.7957, 62.1384, 58.8741
+3d   AP:70.5504, 55.6006, 53.0627
+aos  AP:83.29, 68.53, 65.22
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.3867, 72.0637, 68.4368
+bev  AP:77.8308, 62.0302, 58.3620
+3d   AP:71.1808, 54.6714, 51.7998
+aos  AP:85.70, 69.12, 65.61
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.9083, 71.1172, 67.7176
+bev  AP:82.2057, 66.9094, 63.9192
+3d   AP:82.2057, 66.9094, 63.9192
+aos  AP:83.29, 68.53, 65.22
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.3867, 72.0637, 68.4368
+bev  AP:84.7180, 67.4233, 64.1350
+3d   AP:84.7180, 67.4233, 64.1350
+aos  AP:85.70, 69.12, 65.61
+
+2020-12-06 00:28:53,933   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_71/val
+2020-12-06 00:28:53,933   INFO  ****************Evaluation done.*****************
+2020-12-06 00:28:53,956   INFO  Epoch 71 has been evaluated
+2020-12-06 00:28:53,957   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_72.pth to CPU
+2020-12-06 00:28:53,977   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:28:54,038   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:28:54,039   INFO  *************** EPOCH 72 EVALUATION *****************
+2020-12-06 00:29:46,571   INFO  *************** Performance of EPOCH 72 *****************
+2020-12-06 00:29:46,571   INFO  Generate label finished(sec_per_example: 0.0139 second).
+2020-12-06 00:29:46,571   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:29:46,571   INFO  recall_rcnn_0.3: 0.940091
+2020-12-06 00:29:46,571   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:29:46,571   INFO  recall_rcnn_0.5: 0.880125
+2020-12-06 00:29:46,571   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:29:46,571   INFO  recall_rcnn_0.7: 0.634567
+2020-12-06 00:29:46,573   INFO  Average predicted number of objects(3769 samples): 18.694
+2020-12-06 00:30:03,551   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7243, 89.6285, 88.7463
+bev  AP:89.8134, 87.5139, 85.9759
+3d   AP:86.4839, 76.7692, 75.1745
+aos  AP:90.71, 89.45, 88.43
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.8103, 92.2023, 91.4953
+bev  AP:93.7245, 88.3180, 87.4531
+3d   AP:87.4802, 78.0140, 75.2662
+aos  AP:95.79, 92.00, 91.15
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7243, 89.6285, 88.7463
+bev  AP:95.1861, 90.0203, 89.4498
+3d   AP:95.1217, 89.9777, 89.3339
+aos  AP:90.71, 89.45, 88.43
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.8103, 92.2023, 91.4953
+bev  AP:97.3797, 94.7505, 94.2056
+3d   AP:97.3390, 94.5813, 93.8470
+aos  AP:95.79, 92.00, 91.15
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.3068, 59.1522, 55.8813
+bev  AP:59.0425, 54.5972, 50.2951
+3d   AP:54.2638, 48.8069, 45.3209
+aos  AP:42.99, 40.47, 38.48
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.9961, 59.3767, 55.1944
+bev  AP:59.0243, 53.2853, 48.9527
+3d   AP:53.1218, 47.6724, 43.3046
+aos  AP:39.79, 37.47, 34.80
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.3068, 59.1522, 55.8813
+bev  AP:70.5404, 67.7258, 63.8175
+3d   AP:70.3911, 67.3622, 63.4533
+aos  AP:42.99, 40.47, 38.48
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.9961, 59.3767, 55.1944
+bev  AP:71.9938, 68.3450, 64.0303
+3d   AP:71.8420, 67.9340, 63.6114
+aos  AP:39.79, 37.47, 34.80
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.6644, 72.3574, 69.4786
+bev  AP:77.9935, 63.8823, 60.8252
+3d   AP:72.5815, 58.8299, 54.8850
+aos  AP:82.71, 69.98, 67.27
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.2370, 73.7796, 69.9085
+bev  AP:80.2123, 63.5192, 60.0331
+3d   AP:73.7269, 57.4740, 53.7921
+aos  AP:85.16, 71.15, 67.42
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.6644, 72.3574, 69.4786
+bev  AP:83.8466, 68.2657, 65.2808
+3d   AP:83.8466, 68.2657, 65.2808
+aos  AP:82.71, 69.98, 67.27
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.2370, 73.7796, 69.9085
+bev  AP:85.1271, 69.0766, 65.5229
+3d   AP:85.1271, 69.0766, 65.5229
+aos  AP:85.16, 71.15, 67.42
+
+2020-12-06 00:30:03,553   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_72/val
+2020-12-06 00:30:03,553   INFO  ****************Evaluation done.*****************
+2020-12-06 00:30:03,579   INFO  Epoch 72 has been evaluated
+2020-12-06 00:30:03,580   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_73.pth to CPU
+2020-12-06 00:30:03,600   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:30:03,662   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:30:03,663   INFO  *************** EPOCH 73 EVALUATION *****************
+2020-12-06 00:30:56,284   INFO  *************** Performance of EPOCH 73 *****************
+2020-12-06 00:30:56,284   INFO  Generate label finished(sec_per_example: 0.0140 second).
+2020-12-06 00:30:56,284   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:30:56,284   INFO  recall_rcnn_0.3: 0.940945
+2020-12-06 00:30:56,284   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:30:56,284   INFO  recall_rcnn_0.5: 0.879157
+2020-12-06 00:30:56,284   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:30:56,285   INFO  recall_rcnn_0.7: 0.634681
+2020-12-06 00:30:56,287   INFO  Average predicted number of objects(3769 samples): 18.167
+2020-12-06 00:31:13,017   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7406, 89.6743, 88.7756
+bev  AP:89.7671, 87.5115, 85.5280
+3d   AP:86.2172, 76.8654, 75.0888
+aos  AP:90.73, 89.47, 88.43
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.7628, 92.2705, 91.4777
+bev  AP:92.2963, 88.3465, 87.2928
+3d   AP:87.4622, 78.0606, 75.2702
+aos  AP:95.74, 92.05, 91.10
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7406, 89.6743, 88.7756
+bev  AP:90.7543, 90.0629, 89.4182
+3d   AP:90.7543, 90.0203, 89.2808
+aos  AP:90.73, 89.47, 88.43
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.7628, 92.2705, 91.4777
+bev  AP:95.8421, 94.7887, 94.1579
+3d   AP:95.8188, 94.6134, 93.7724
+aos  AP:95.74, 92.05, 91.10
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.2838, 58.9308, 55.9289
+bev  AP:58.8117, 53.8757, 49.8619
+3d   AP:53.7094, 48.1929, 44.4255
+aos  AP:43.60, 40.48, 38.77
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.8245, 59.0658, 55.0008
+bev  AP:58.8032, 52.8922, 48.2651
+3d   AP:52.1474, 46.8941, 42.2197
+aos  AP:40.41, 37.47, 34.78
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.2838, 58.9308, 55.9289
+bev  AP:70.5508, 67.5379, 63.1923
+3d   AP:70.3233, 66.9968, 62.6528
+aos  AP:43.60, 40.48, 38.77
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.8245, 59.0658, 55.0008
+bev  AP:71.9524, 67.9896, 63.5423
+3d   AP:71.6907, 67.3388, 62.8467
+aos  AP:40.41, 37.47, 34.78
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.1906, 72.1593, 68.8403
+bev  AP:77.4178, 63.4319, 60.5767
+3d   AP:72.6345, 57.8060, 55.6349
+aos  AP:82.52, 69.09, 66.02
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:85.9195, 73.1834, 69.4103
+bev  AP:79.0924, 63.2789, 59.8837
+3d   AP:73.1362, 57.3750, 54.2470
+aos  AP:85.12, 69.79, 66.20
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.1906, 72.1593, 68.8403
+bev  AP:83.5462, 68.5061, 65.0326
+3d   AP:83.5462, 68.5061, 65.0326
+aos  AP:82.52, 69.09, 66.02
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:85.9195, 73.1834, 69.4103
+bev  AP:84.6306, 68.7761, 65.1166
+3d   AP:84.6306, 68.7761, 65.1166
+aos  AP:85.12, 69.79, 66.20
+
+2020-12-06 00:31:13,020   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_73/val
+2020-12-06 00:31:13,020   INFO  ****************Evaluation done.*****************
+2020-12-06 00:31:13,043   INFO  Epoch 73 has been evaluated
+2020-12-06 00:31:13,044   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_74.pth to CPU
+2020-12-06 00:31:13,061   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:31:13,121   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:31:13,123   INFO  *************** EPOCH 74 EVALUATION *****************
+2020-12-06 00:32:06,315   INFO  *************** Performance of EPOCH 74 *****************
+2020-12-06 00:32:06,315   INFO  Generate label finished(sec_per_example: 0.0141 second).
+2020-12-06 00:32:06,315   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:32:06,315   INFO  recall_rcnn_0.3: 0.937813
+2020-12-06 00:32:06,315   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:32:06,315   INFO  recall_rcnn_0.5: 0.877620
+2020-12-06 00:32:06,315   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:32:06,315   INFO  recall_rcnn_0.7: 0.638895
+2020-12-06 00:32:06,317   INFO  Average predicted number of objects(3769 samples): 17.225
+2020-12-06 00:32:22,751   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7319, 89.7347, 88.8172
+bev  AP:89.7929, 87.4269, 85.7290
+3d   AP:86.5278, 77.0026, 75.4372
+aos  AP:90.72, 89.54, 88.48
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.8614, 92.4240, 91.6892
+bev  AP:92.4159, 88.3431, 87.3376
+3d   AP:87.6730, 78.3666, 75.5222
+aos  AP:95.84, 92.20, 91.31
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7319, 89.7347, 88.8172
+bev  AP:90.7489, 90.0450, 89.4078
+3d   AP:90.7489, 89.9923, 89.2818
+aos  AP:90.72, 89.54, 88.48
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.8614, 92.4240, 91.6892
+bev  AP:95.9562, 94.8793, 94.2315
+3d   AP:95.9328, 94.7178, 93.9270
+aos  AP:95.84, 92.20, 91.31
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:62.9964, 58.9235, 55.0463
+bev  AP:58.8629, 53.8600, 49.7553
+3d   AP:53.5724, 47.9434, 43.7849
+aos  AP:42.97, 40.43, 37.84
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.9368, 58.8058, 54.5958
+bev  AP:58.9766, 52.6267, 48.1594
+3d   AP:52.1029, 46.5842, 41.7014
+aos  AP:39.86, 37.28, 34.39
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:62.9964, 58.9235, 55.0463
+bev  AP:71.0894, 67.9886, 63.4703
+3d   AP:70.7747, 67.4453, 62.9744
+aos  AP:42.97, 40.43, 37.84
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.9368, 58.8058, 54.5958
+bev  AP:72.6611, 68.4287, 63.8227
+3d   AP:72.2908, 67.7993, 63.2136
+aos  AP:39.86, 37.28, 34.39
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.6645, 72.5761, 69.4224
+bev  AP:77.0773, 63.4847, 59.3404
+3d   AP:73.7322, 58.8158, 56.0375
+aos  AP:82.86, 69.82, 66.89
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.2392, 73.6541, 69.6996
+bev  AP:78.3270, 63.2634, 59.3654
+3d   AP:74.0392, 58.5514, 54.7064
+aos  AP:85.37, 70.66, 66.87
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.6645, 72.5761, 69.4224
+bev  AP:83.9272, 68.6579, 65.6504
+3d   AP:83.9272, 68.6579, 65.6504
+aos  AP:82.86, 69.82, 66.89
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.2392, 73.6541, 69.6996
+bev  AP:85.1528, 69.2963, 65.7397
+3d   AP:85.1528, 69.2963, 65.7397
+aos  AP:85.37, 70.66, 66.87
+
+2020-12-06 00:32:22,754   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_74/val
+2020-12-06 00:32:22,754   INFO  ****************Evaluation done.*****************
+2020-12-06 00:32:22,771   INFO  Epoch 74 has been evaluated
+2020-12-06 00:32:22,772   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_75.pth to CPU
+2020-12-06 00:32:22,790   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:32:22,851   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:32:22,853   INFO  *************** EPOCH 75 EVALUATION *****************
+2020-12-06 00:33:16,506   INFO  *************** Performance of EPOCH 75 *****************
+2020-12-06 00:33:16,506   INFO  Generate label finished(sec_per_example: 0.0142 second).
+2020-12-06 00:33:16,507   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:33:16,507   INFO  recall_rcnn_0.3: 0.936503
+2020-12-06 00:33:16,507   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:33:16,507   INFO  recall_rcnn_0.5: 0.877847
+2020-12-06 00:33:16,507   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:33:16,507   INFO  recall_rcnn_0.7: 0.636219
+2020-12-06 00:33:16,509   INFO  Average predicted number of objects(3769 samples): 16.571
+2020-12-06 00:33:32,624   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:95.1135, 89.6265, 88.7480
+bev  AP:89.7148, 87.4280, 85.8745
+3d   AP:86.0764, 76.7438, 75.2243
+aos  AP:95.08, 89.43, 88.43
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:97.1785, 93.4399, 91.4906
+bev  AP:93.6972, 88.2213, 87.3053
+3d   AP:87.1858, 77.9515, 75.2342
+aos  AP:97.15, 93.20, 91.12
+Car AP@0.70, 0.50, 0.50:
+bbox AP:95.1135, 89.6265, 88.7480
+bev  AP:95.2527, 94.0975, 89.3987
+3d   AP:95.1896, 89.9666, 89.2560
+aos  AP:95.08, 89.43, 88.43
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:97.1785, 93.4399, 91.4906
+bev  AP:97.4857, 95.9800, 94.2088
+3d   AP:97.4474, 94.6255, 93.8882
+aos  AP:97.15, 93.20, 91.12
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.0125, 59.1224, 54.9826
+bev  AP:59.0475, 53.3371, 49.7480
+3d   AP:53.3697, 47.5160, 43.6771
+aos  AP:43.29, 40.47, 37.96
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.9597, 58.9272, 54.6049
+bev  AP:59.4121, 52.7948, 48.5241
+3d   AP:52.7130, 46.8209, 42.1180
+aos  AP:40.32, 37.68, 34.78
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.0125, 59.1224, 54.9826
+bev  AP:71.5499, 67.9497, 63.6711
+3d   AP:71.1186, 67.5065, 63.3033
+aos  AP:43.29, 40.47, 37.96
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.9597, 58.9272, 54.6049
+bev  AP:72.8404, 68.4504, 64.0142
+3d   AP:72.4987, 67.8816, 63.4661
+aos  AP:40.32, 37.68, 34.78
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.4921, 71.8507, 68.6647
+bev  AP:77.7484, 62.6774, 59.4319
+3d   AP:72.4531, 57.5341, 54.1082
+aos  AP:82.67, 69.62, 66.55
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.1917, 72.8377, 68.9637
+bev  AP:78.6216, 62.8190, 59.1573
+3d   AP:72.9092, 56.5965, 52.9011
+aos  AP:85.27, 70.28, 66.53
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.4921, 71.8507, 68.6647
+bev  AP:82.1571, 67.2145, 65.1537
+3d   AP:82.1571, 67.2145, 65.1537
+aos  AP:82.67, 69.62, 66.55
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.1917, 72.8377, 68.9637
+bev  AP:84.5162, 68.2221, 64.9164
+3d   AP:84.5162, 68.2221, 64.9164
+aos  AP:85.27, 70.28, 66.53
+
+2020-12-06 00:33:32,627   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_75/val
+2020-12-06 00:33:32,627   INFO  ****************Evaluation done.*****************
+2020-12-06 00:33:32,646   INFO  Epoch 75 has been evaluated
+2020-12-06 00:33:32,647   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_76.pth to CPU
+2020-12-06 00:33:32,665   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:33:32,726   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:33:32,728   INFO  *************** EPOCH 76 EVALUATION *****************
+2020-12-06 00:34:26,142   INFO  *************** Performance of EPOCH 76 *****************
+2020-12-06 00:34:26,142   INFO  Generate label finished(sec_per_example: 0.0142 second).
+2020-12-06 00:34:26,142   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:34:26,142   INFO  recall_rcnn_0.3: 0.939123
+2020-12-06 00:34:26,142   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:34:26,142   INFO  recall_rcnn_0.5: 0.878702
+2020-12-06 00:34:26,142   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:34:26,142   INFO  recall_rcnn_0.7: 0.640262
+2020-12-06 00:34:26,144   INFO  Average predicted number of objects(3769 samples): 17.533
+2020-12-06 00:34:42,746   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7334, 89.6692, 88.8117
+bev  AP:89.6858, 87.4369, 85.9026
+3d   AP:86.4533, 77.0779, 75.6149
+aos  AP:90.72, 89.46, 88.49
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.8466, 92.2913, 91.6155
+bev  AP:92.3027, 88.2756, 87.4131
+3d   AP:87.5191, 78.3295, 75.6037
+aos  AP:95.83, 92.07, 91.25
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7334, 89.6692, 88.8117
+bev  AP:90.7469, 90.0049, 89.3947
+3d   AP:90.7469, 89.9519, 89.2527
+aos  AP:90.72, 89.46, 88.49
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.8466, 92.2913, 91.6155
+bev  AP:95.9062, 94.8004, 94.2207
+3d   AP:95.8813, 94.5977, 93.8540
+aos  AP:95.83, 92.07, 91.25
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.0464, 58.8157, 55.0106
+bev  AP:58.3657, 53.5618, 49.7160
+3d   AP:53.0844, 47.6078, 43.8191
+aos  AP:43.52, 40.71, 38.49
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.8196, 58.8000, 54.4406
+bev  AP:58.3779, 52.4044, 47.9721
+3d   AP:51.5086, 46.0856, 41.5661
+aos  AP:40.40, 37.61, 34.91
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.0464, 58.8157, 55.0106
+bev  AP:70.5515, 67.3742, 63.2684
+3d   AP:70.3390, 66.8944, 62.7797
+aos  AP:43.52, 40.71, 38.49
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.8196, 58.8000, 54.4406
+bev  AP:71.9919, 67.8189, 63.4391
+3d   AP:71.6992, 67.2373, 62.8691
+aos  AP:40.40, 37.61, 34.91
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:82.9338, 72.3391, 68.9903
+bev  AP:78.6401, 64.0147, 60.1205
+3d   AP:74.2209, 58.3163, 55.5874
+aos  AP:82.12, 69.51, 66.21
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:85.8935, 73.2082, 69.2806
+bev  AP:80.6841, 64.0310, 60.0743
+3d   AP:74.7203, 57.8026, 54.2008
+aos  AP:84.95, 70.08, 66.24
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:82.9338, 72.3391, 68.9903
+bev  AP:81.8237, 69.0002, 65.2998
+3d   AP:81.8237, 69.0002, 65.2998
+aos  AP:82.12, 69.51, 66.21
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:85.8935, 73.2082, 69.2806
+bev  AP:84.6080, 68.8718, 65.2613
+3d   AP:84.6080, 68.8718, 65.2613
+aos  AP:84.95, 70.08, 66.24
+
+2020-12-06 00:34:42,749   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_76/val
+2020-12-06 00:34:42,749   INFO  ****************Evaluation done.*****************
+2020-12-06 00:34:42,767   INFO  Epoch 76 has been evaluated
+2020-12-06 00:34:42,768   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_77.pth to CPU
+2020-12-06 00:34:42,787   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:34:42,847   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:34:42,849   INFO  *************** EPOCH 77 EVALUATION *****************
+2020-12-06 00:35:36,332   INFO  *************** Performance of EPOCH 77 *****************
+2020-12-06 00:35:36,332   INFO  Generate label finished(sec_per_example: 0.0142 second).
+2020-12-06 00:35:36,332   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:35:36,332   INFO  recall_rcnn_0.3: 0.938212
+2020-12-06 00:35:36,332   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:35:36,332   INFO  recall_rcnn_0.5: 0.878360
+2020-12-06 00:35:36,332   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:35:36,332   INFO  recall_rcnn_0.7: 0.640091
+2020-12-06 00:35:36,334   INFO  Average predicted number of objects(3769 samples): 17.083
+2020-12-06 00:35:52,600   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7222, 89.7005, 88.8004
+bev  AP:89.7310, 87.5045, 85.8943
+3d   AP:86.4312, 77.1385, 75.6032
+aos  AP:90.71, 89.51, 88.47
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.8020, 92.3274, 91.6142
+bev  AP:92.3636, 88.3466, 87.4292
+3d   AP:87.5808, 78.4220, 75.6434
+aos  AP:95.78, 92.10, 91.25
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7222, 89.7005, 88.8004
+bev  AP:90.7344, 90.0265, 89.4215
+3d   AP:90.7344, 89.9737, 89.2649
+aos  AP:90.71, 89.51, 88.47
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.8020, 92.3274, 91.6142
+bev  AP:95.8766, 94.8313, 94.2577
+3d   AP:95.8523, 94.6526, 93.9059
+aos  AP:95.78, 92.10, 91.25
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:62.7471, 58.7185, 55.0945
+bev  AP:58.5407, 53.8786, 49.8574
+3d   AP:53.2516, 47.8031, 44.1086
+aos  AP:43.49, 40.82, 38.77
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.5578, 58.7174, 54.4609
+bev  AP:58.5601, 52.5814, 48.3057
+3d   AP:51.8993, 46.5048, 41.8698
+aos  AP:40.45, 37.88, 35.23
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:62.7471, 58.7185, 55.0945
+bev  AP:70.4184, 67.5469, 63.4202
+3d   AP:70.1660, 67.1658, 62.9855
+aos  AP:43.49, 40.82, 38.77
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.5578, 58.7174, 54.4609
+bev  AP:71.8768, 68.0134, 63.6130
+3d   AP:71.5317, 67.4545, 62.9924
+aos  AP:40.45, 37.88, 35.23
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.3169, 72.3927, 69.4459
+bev  AP:77.9053, 63.7729, 59.7987
+3d   AP:74.0345, 58.1468, 55.3687
+aos  AP:82.56, 70.08, 67.08
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.1354, 73.6856, 69.7924
+bev  AP:79.5897, 63.5787, 59.7489
+3d   AP:74.3540, 57.6996, 54.2337
+aos  AP:85.29, 70.99, 67.20
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.3169, 72.3927, 69.4459
+bev  AP:84.1127, 68.9295, 65.6386
+3d   AP:84.1127, 68.9295, 65.6386
+aos  AP:82.56, 70.08, 67.08
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.1354, 73.6856, 69.7924
+bev  AP:85.3538, 69.3430, 65.6774
+3d   AP:85.3538, 69.3430, 65.6774
+aos  AP:85.29, 70.99, 67.20
+
+2020-12-06 00:35:52,602   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_77/val
+2020-12-06 00:35:52,602   INFO  ****************Evaluation done.*****************
+2020-12-06 00:35:52,627   INFO  Epoch 77 has been evaluated
+2020-12-06 00:35:52,629   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_78.pth to CPU
+2020-12-06 00:35:52,649   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:35:52,709   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:35:52,711   INFO  *************** EPOCH 78 EVALUATION *****************
+2020-12-06 00:36:46,685   INFO  *************** Performance of EPOCH 78 *****************
+2020-12-06 00:36:46,685   INFO  Generate label finished(sec_per_example: 0.0143 second).
+2020-12-06 00:36:46,685   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:36:46,685   INFO  recall_rcnn_0.3: 0.938326
+2020-12-06 00:36:46,685   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:36:46,685   INFO  recall_rcnn_0.5: 0.878417
+2020-12-06 00:36:46,685   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:36:46,685   INFO  recall_rcnn_0.7: 0.639009
+2020-12-06 00:36:46,687   INFO  Average predicted number of objects(3769 samples): 16.729
+2020-12-06 00:37:02,812   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.6981, 89.6420, 88.7570
+bev  AP:89.7064, 87.4698, 85.8458
+3d   AP:86.1788, 76.9681, 75.5566
+aos  AP:90.69, 89.45, 88.43
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.7551, 92.2548, 91.5588
+bev  AP:92.2954, 88.2616, 87.3478
+3d   AP:87.3316, 78.1949, 75.5075
+aos  AP:95.73, 92.03, 91.19
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.6981, 89.6420, 88.7570
+bev  AP:90.7173, 90.0007, 89.3849
+3d   AP:90.7173, 89.9292, 89.2585
+aos  AP:90.69, 89.45, 88.43
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.7551, 92.2548, 91.5588
+bev  AP:95.8452, 94.7666, 94.1928
+3d   AP:95.8212, 94.5772, 93.8813
+aos  AP:95.73, 92.03, 91.19
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:62.6413, 58.7147, 54.9524
+bev  AP:59.0403, 53.9944, 50.1544
+3d   AP:53.8420, 48.1035, 44.3442
+aos  AP:43.14, 40.44, 38.30
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.6658, 58.5142, 54.5091
+bev  AP:59.1706, 52.9346, 48.4889
+3d   AP:52.5145, 46.8210, 42.1263
+aos  AP:40.10, 37.27, 34.79
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:62.6413, 58.7147, 54.9524
+bev  AP:70.6283, 67.7077, 63.6382
+3d   AP:70.3900, 67.1996, 63.1805
+aos  AP:43.14, 40.44, 38.30
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.6658, 58.5142, 54.5091
+bev  AP:72.0578, 68.1749, 63.7676
+3d   AP:71.7254, 67.5330, 63.2114
+aos  AP:40.10, 37.27, 34.79
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.4328, 72.2144, 69.6252
+bev  AP:77.9908, 63.5430, 60.8982
+3d   AP:73.7424, 57.9272, 55.1722
+aos  AP:82.70, 69.90, 67.41
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.1847, 73.6761, 69.7478
+bev  AP:79.4181, 63.4374, 59.9001
+3d   AP:74.0799, 57.2829, 53.9932
+aos  AP:85.35, 71.02, 67.21
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.4328, 72.2144, 69.6252
+bev  AP:83.9386, 68.5802, 65.6498
+3d   AP:83.9386, 68.5802, 65.6498
+aos  AP:82.70, 69.90, 67.41
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.1847, 73.6761, 69.7478
+bev  AP:85.1426, 69.0944, 65.4636
+3d   AP:85.1426, 69.0944, 65.4636
+aos  AP:85.35, 71.02, 67.21
+
+2020-12-06 00:37:02,814   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_78/val
+2020-12-06 00:37:02,814   INFO  ****************Evaluation done.*****************
+2020-12-06 00:37:02,838   INFO  Epoch 78 has been evaluated
+2020-12-06 00:37:02,839   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_79.pth to CPU
+2020-12-06 00:37:02,858   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:37:02,919   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:37:02,920   INFO  *************** EPOCH 79 EVALUATION *****************
+2020-12-06 00:37:56,837   INFO  *************** Performance of EPOCH 79 *****************
+2020-12-06 00:37:56,837   INFO  Generate label finished(sec_per_example: 0.0143 second).
+2020-12-06 00:37:56,837   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:37:56,837   INFO  recall_rcnn_0.3: 0.937699
+2020-12-06 00:37:56,837   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:37:56,837   INFO  recall_rcnn_0.5: 0.878189
+2020-12-06 00:37:56,837   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:37:56,837   INFO  recall_rcnn_0.7: 0.639351
+2020-12-06 00:37:56,839   INFO  Average predicted number of objects(3769 samples): 16.694
+2020-12-06 00:38:12,935   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7015, 89.6475, 88.7766
+bev  AP:89.6820, 87.4131, 85.9118
+3d   AP:86.2801, 77.0060, 75.6049
+aos  AP:90.69, 89.47, 88.47
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.7654, 92.2670, 91.5943
+bev  AP:93.4155, 88.2249, 87.3610
+3d   AP:87.3727, 78.2503, 75.5548
+aos  AP:95.74, 92.07, 91.25
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7015, 89.6475, 88.7766
+bev  AP:90.7136, 89.9935, 89.3702
+3d   AP:90.7136, 89.9387, 89.2414
+aos  AP:90.69, 89.47, 88.47
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.7654, 92.2670, 91.5943
+bev  AP:95.8469, 94.7750, 94.2060
+3d   AP:95.8223, 94.5861, 93.8830
+aos  AP:95.74, 92.07, 91.25
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:63.0210, 58.9266, 55.1902
+bev  AP:59.0258, 54.0416, 50.3452
+3d   AP:53.8351, 47.9891, 44.2723
+aos  AP:43.53, 40.66, 38.50
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.8464, 58.9268, 54.7476
+bev  AP:59.1443, 52.9083, 48.5646
+3d   AP:52.4185, 46.7270, 42.0511
+aos  AP:40.39, 37.69, 35.02
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:63.0210, 58.9266, 55.1902
+bev  AP:70.8668, 67.7021, 63.6396
+3d   AP:70.6268, 67.1864, 63.2557
+aos  AP:43.53, 40.66, 38.50
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.8464, 58.9268, 54.7476
+bev  AP:72.3399, 68.2337, 63.8354
+3d   AP:72.0430, 67.6205, 63.3087
+aos  AP:40.39, 37.69, 35.02
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.5900, 72.3950, 69.5693
+bev  AP:77.9579, 63.7948, 59.8000
+3d   AP:73.8062, 57.9555, 55.2179
+aos  AP:82.73, 69.99, 67.28
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.3239, 73.6284, 69.7308
+bev  AP:79.4480, 63.6036, 59.6194
+3d   AP:74.2206, 57.3880, 53.8042
+aos  AP:85.36, 70.88, 67.13
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.5900, 72.3950, 69.5693
+bev  AP:84.2288, 68.7204, 65.6602
+3d   AP:84.2288, 68.7204, 65.6602
+aos  AP:82.73, 69.99, 67.28
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.3239, 73.6284, 69.7308
+bev  AP:85.2506, 69.1576, 65.4759
+3d   AP:85.2506, 69.1576, 65.4759
+aos  AP:85.36, 70.88, 67.13
+
+2020-12-06 00:38:12,938   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_79/val
+2020-12-06 00:38:12,938   INFO  ****************Evaluation done.*****************
+2020-12-06 00:38:12,958   INFO  Epoch 79 has been evaluated
+2020-12-06 00:38:12,959   INFO  ==> Loading parameters from checkpoint /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/ckpt/checkpoint_epoch_80.pth to CPU
+2020-12-06 00:38:12,978   INFO  ==> Checkpoint trained from version: pcdet+0.3.0+0000000
+2020-12-06 00:38:13,039   INFO  ==> Done (loaded 127/127)
+2020-12-06 00:38:13,040   INFO  *************** EPOCH 80 EVALUATION *****************
+2020-12-06 00:39:06,647   INFO  *************** Performance of EPOCH 80 *****************
+2020-12-06 00:39:06,647   INFO  Generate label finished(sec_per_example: 0.0142 second).
+2020-12-06 00:39:06,647   INFO  recall_roi_0.3: 0.000000
+2020-12-06 00:39:06,647   INFO  recall_rcnn_0.3: 0.937870
+2020-12-06 00:39:06,647   INFO  recall_roi_0.5: 0.000000
+2020-12-06 00:39:06,647   INFO  recall_rcnn_0.5: 0.878531
+2020-12-06 00:39:06,647   INFO  recall_roi_0.7: 0.000000
+2020-12-06 00:39:06,647   INFO  recall_rcnn_0.7: 0.639522
+2020-12-06 00:39:06,649   INFO  Average predicted number of objects(3769 samples): 16.829
+2020-12-06 00:39:22,595   INFO  Car AP@0.70, 0.70, 0.70:
+bbox AP:90.7020, 89.6467, 88.7669
+bev  AP:89.7050, 87.4448, 85.9504
+3d   AP:86.2588, 76.9688, 75.5700
+aos  AP:90.69, 89.47, 88.46
+Car AP_R40@0.70, 0.70, 0.70:
+bbox AP:95.7595, 92.2461, 91.5724
+bev  AP:93.4627, 88.2459, 87.3760
+3d   AP:87.3507, 78.2197, 75.5171
+aos  AP:95.74, 92.05, 91.23
+Car AP@0.70, 0.50, 0.50:
+bbox AP:90.7020, 89.6467, 88.7669
+bev  AP:90.7141, 90.0025, 89.3698
+3d   AP:90.7141, 89.9398, 89.2435
+aos  AP:90.69, 89.47, 88.46
+Car AP_R40@0.70, 0.50, 0.50:
+bbox AP:95.7595, 92.2461, 91.5724
+bev  AP:95.8404, 94.7628, 94.1985
+3d   AP:95.8163, 94.5811, 93.8772
+aos  AP:95.74, 92.05, 91.23
+Pedestrian AP@0.50, 0.50, 0.50:
+bbox AP:62.6040, 58.6629, 54.9935
+bev  AP:58.8322, 53.8442, 50.1008
+3d   AP:53.5798, 47.9109, 44.2449
+aos  AP:43.25, 40.39, 38.26
+Pedestrian AP_R40@0.50, 0.50, 0.50:
+bbox AP:62.5958, 58.5128, 54.5208
+bev  AP:59.0718, 52.7542, 48.4265
+3d   AP:52.1770, 46.6204, 41.9804
+aos  AP:40.22, 37.34, 34.77
+Pedestrian AP@0.50, 0.25, 0.25:
+bbox AP:62.6040, 58.6629, 54.9935
+bev  AP:70.6728, 67.6564, 63.5940
+3d   AP:70.4221, 67.1545, 63.1142
+aos  AP:43.25, 40.39, 38.26
+Pedestrian AP_R40@0.50, 0.25, 0.25:
+bbox AP:62.5958, 58.5128, 54.5208
+bev  AP:72.0780, 68.1182, 63.7489
+3d   AP:71.7339, 67.4650, 63.1107
+aos  AP:40.22, 37.34, 34.77
+Cyclist AP@0.50, 0.50, 0.50:
+bbox AP:83.4876, 72.1675, 69.5131
+bev  AP:77.8025, 63.3869, 59.7123
+3d   AP:73.8338, 57.9370, 54.8418
+aos  AP:82.64, 69.75, 67.22
+Cyclist AP_R40@0.50, 0.50, 0.50:
+bbox AP:86.0892, 73.4165, 69.6207
+bev  AP:78.8153, 63.2917, 59.4743
+3d   AP:74.0607, 57.2962, 53.5938
+aos  AP:85.13, 70.67, 67.01
+Cyclist AP@0.50, 0.25, 0.25:
+bbox AP:83.4876, 72.1675, 69.5131
+bev  AP:82.0626, 68.4452, 65.5431
+3d   AP:82.0626, 68.4452, 65.5431
+aos  AP:82.64, 69.75, 67.22
+Cyclist AP_R40@0.50, 0.25, 0.25:
+bbox AP:86.0892, 73.4165, 69.6207
+bev  AP:84.4678, 68.9677, 65.3193
+3d   AP:84.4678, 68.9677, 65.3193
+aos  AP:85.13, 70.67, 67.01
+
+2020-12-06 00:39:22,598   INFO  Result is save to /home/lethe5lambda/Documents/PointPainter/LidarDetector/output/cfgs/kitti_models/pp-gt-r/default/eval/eval_with_train/epoch_80/val
+2020-12-06 00:39:22,598   INFO  ****************Evaluation done.*****************
+2020-12-06 00:39:22,616   INFO  Epoch 80 has been evaluated
+2020-12-06 00:39:52,647   INFO  **********************End evaluation cfgs/kitti_models/pp-gt-r(default)**********************
