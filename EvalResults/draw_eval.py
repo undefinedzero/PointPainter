@@ -92,9 +92,9 @@ def eval_2d_seg():
     mean_ap_cache = {}
     std_ap_cache = {}
     # TODO: change file names
-    cat_cache, mean_ap_cache['dlv3'], std_ap_cache['dlv3'] = read_ap('pp-gt-v3-re.txt')
-    _, mean_ap_cache['dlv3+'], std_ap_cache['dlv3+']= read_ap('pp-gt-v3+-re.txt')
-    _, mean_ap_cache['hma'], std_ap_cache['hma'] = read_ap('pp-gt-hma-re.txt')
+    cat_cache, mean_ap_cache['dlv3'], std_ap_cache['dlv3'] = read_ap('pp-gt-v3.txt')
+    _, mean_ap_cache['dlv3+'], std_ap_cache['dlv3+']= read_ap('pp-gt-v3+.txt')
+    _, mean_ap_cache['hma'], std_ap_cache['hma'] = read_ap('pp-gt-hma.txt')
     _, mean_ap_cache['rangenet'], std_ap_cache['rangenet'] = read_ap('pp-gt-r-re.txt')
     idx = range(9)
     width = 0.2
