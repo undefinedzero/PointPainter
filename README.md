@@ -1,2 +1,3 @@
 # PointPainter
-PointPainted 3D detectors
+## Semantic Segmentation Guidance for 3D object Detection
+
