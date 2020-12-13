@@ -1,5 +1,5 @@
 # PointPainter
-## Segmentation Guidance for 3D object Detection
+# Segmentation Guidance for 3D object Detection
 
 ## Overview
 This project uses segmentation information to guide the Lidar 3D detection both in training and inference. This guidance may come from stereo images, Lidar point cloud itself, or ground truth information. The model we implemented consists of four main stages:
@@ -13,24 +13,24 @@ This project uses segmentation information to guide the Lidar 3D detection both 
 PointPainting:
    
     @inproceedings{vora2020pointpainting,
-    title={Pointpainting: Sequential fusion for 3d object detection},
-    author={Vora, Sourabh and et al},
-    booktitle={CVPR},
-    pages={4604--4612},
-    year={2020}
+        title={Pointpainting: Sequential fusion for 3d object detection},
+        author={Vora, Sourabh and et al},
+        booktitle={CVPR},
+        pages={4604--4612},
+        year={2020}
     }
    
 SECOND:
    
     @article{yan2018second,
-    title={Second: Sparsely embedded convolutional detection},
-    author={Yan, Yan and et al},
-    journal={Sensors},
-    volume={18},
-    number={10},
-    pages={3337},
-    year={2018},
-    publisher={Multidisciplinary Digital Publishing Institute}
+        title={Second: Sparsely embedded convolutional detection},
+        author={Yan, Yan and et al},
+        journal={Sensors},
+        volume={18},
+        number={10},
+        pages={3337},
+        year={2018},
+        publisher={Multidisciplinary Digital Publishing Institute}
     }
 
 ## Usage
