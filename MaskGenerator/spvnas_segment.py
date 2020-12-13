@@ -161,7 +161,7 @@ def draw_lidar(pc, color=None, fig=None, bgcolor=(1,1,1), pts_scale=0.06, pts_mo
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     parser.add_argument('--velodyne-dir', type=str, default='/home/lethe5lambda/Documents/PointPainter/LidarDetector/data/kitti/training/velodyne/')
-    parser.add_argument('--model', type=str, default='SemanticKITTI_val_SPVNAS@65GMACs')
+    parser.add_argument('--model', type=str, default='SemanticKITTI_val_SPVCNN@119GMACs')
     args = parser.parse_args()
     output_dir = "/home/lethe5lambda/Documents/PointPainter/LidarDetector/data/kitti/training/painted_lidar_e3d/"
     os.makedirs(output_dir, exist_ok=True)
@@ -199,8 +199,10 @@ if __name__ == '__main__':
         feed_dict = process_point_cloud(pc, label)
         inputs = feed_dict['lidar'].to(device)
         outputs = model(inputs)
-        print(feed_dict['pc'].shape)
-        print(outputs[feed_dict['inverse_map']].shape)
+        predictions = cmap[outputs.argmax(1).cpu().numpy()]/255.0
+        predictions = predictions[feed_dict['inverse_map']]
+        # predictions = np.concatenate((predictions,predictions,predictions),axis=1)
+        print(save_file_name)
         output_permute = outputs[feed_dict['inverse_map']]
         # train_label_name_mapping = {
         #     0: 'car', 1: 'bicycle', 2: 'motorcycle', 3: 'truck', 4:
@@ -225,11 +227,11 @@ if __name__ == '__main__':
         points = create_cyclist(points)
 
         # open3d
-        # point_cloud = PointCloud()
-        # np_points = np.array(points[:,:3]) #xyz
-        # np_color = np.array(points[:,5:8])
-        # point_cloud.points = Vector3dVector(np_points)
-        # point_cloud.colors = Vector3dVector(np_color)
-        # draw_geometries([point_cloud])
+        point_cloud = PointCloud()
+        np_points = np.array(points[:,:3]) #xyz
+        np_color = np.array(points[:,5:8])
+        point_cloud.points = Vector3dVector(np_points)
+        point_cloud.colors = Vector3dVector(np_color)
+        draw_geometries([point_cloud])
 
         np.save(output_dir + save_file_name, points)

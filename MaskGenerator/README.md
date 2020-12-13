@@ -11,6 +11,7 @@ Follow README.md in [github repo](https://github.com/NVIDIA/semantic-segmentatio
 
 ## SPVNAS
 Follow README.md in e3d [github repo](https://github.com/mit-han-lab/e3d)
+Using `spvnas_segment.py` in this folder to replace the code in `${e3d}/spvnas/visualize.py`
 
 ## SqueezeSegV3
 Follow README.md in SqueezeSegV3 [github repo](https://github.com/chenfengxu714/SqueezeSegV3)
