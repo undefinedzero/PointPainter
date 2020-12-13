@@ -11,13 +11,15 @@ This project uses segmentation information to guide the Lidar 3D detection both 
 
 ## Results
 
-### Painted Point Cloud
-![flow](./EvalResults/masked000068.png)
+### Painted point cloud and detection results
+![painted0](./EvalResults/demo0all.png)
+![painted68](./EvalResults/demo68all.png)
+![painted145](./EvalResults/demo145all.png)
 
-### Evaluation Results on KITTI Validate Set
-![flow](./EvalResults/eva.png)
+### Evaluation results on KITTI validation set
+![eval](./EvalResults/eva.png)
  We calculate the AP in BEV(bird's eye view) metrics. V, P, C represents the vehicle, pedestrian, cyclist class, and e, m, h represents easy, moderate, and hard.
 
  ## Video
- 
+
 
