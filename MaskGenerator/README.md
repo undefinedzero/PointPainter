@@ -1,4 +1,5 @@
 # Mask Generators
+Generate the segmentation scores from a pretrained chosen network, paint(append) semantic scores to Lidar points and store these painted Lidar points.
 
 ## Deeplabv3
 It's included in torch hub
